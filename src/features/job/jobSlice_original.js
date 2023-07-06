@@ -102,7 +102,7 @@ export const deleteJob=createAsyncThunk('job/deleteJob',async(jobId,thunkAPI)=>{
         authorization:`Bearer ${thunkAPI.getState().user.user.token}`
       }
     })
-    thunkAPI.dispatch(getAllJobs());  // now this reducer will take over the loading
+    thunkAPI.dispatch(getAllJobs());  // now this reducer will handle the loading
     return resp.data.msg;
   } catch (error) {
     thunkAPI.dispatch(hideLoading());

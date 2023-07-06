@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import {Logo} from '../components'
-import main from '../assets/images/main.svg'
+import main from '../assets/images/landing.svg'
 import styled from 'styled-components'      // As it is a default export, we can use any name
 
 const Landing=()=>{
