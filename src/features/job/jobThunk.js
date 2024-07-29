@@ -22,6 +22,7 @@ export const deleteJobThunk= async(jobId,thunkAPI)=>{
           authorization:`Bearer ${thunkAPI.getState().user.user.token}`
         }
       })
+      thunkAPI.dispatch(hideLoading());
       thunkAPI.dispatch(getAllJobs());  // now this reducer will take over the loading
       return resp.data.msg;
     } catch (error) {

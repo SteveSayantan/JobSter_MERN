@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import Job from './Job';
 import Wrapper from '../assets/wrappers/JobsContainer';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,12 +7,37 @@ import { getAllJobs } from '../features/all-jobs/allJobsSlice';
 import PageBtnContainer from './PageBtnContainer';
 
 const JobsContainer=function(){
+
+    const ref=useRef(false);
+
     const{jobs,isLoading,page,totalJobs,numOfPages,search,searchStatus,searchType,sort}=useSelector(store=>store.allJobs);
 
     const dispatch= useDispatch();
+
+    const debouncedFetch=()=>{
+
+        let timeOutID;
+
+        return ()=>{
+            clearTimeout(timeOutID);
+            timeOutID=setTimeout(dispatch, 1000,getAllJobs());
+        }
+    }
+
+     // everytime the component re-renders, debouncedFetch is created again, and the previous closure is lost 
+    const optimizedDebounce=useMemo(debouncedFetch,[])  // hence, we need to memoize the return value of debouncedFetch
+
     useEffect(()=>{
-        dispatch(getAllJobs());
-    },[page,search,searchStatus,searchType,sort])
+        if(!ref.current){
+            dispatch(getAllJobs());
+            ref.current=true;
+            return;
+        }
+        
+        optimizedDebounce();
+
+    },[page,search,searchStatus,searchType,sort,optimizedDebounce])
+
     if(isLoading){
         return <Loading center/>
     }

@@ -73,7 +73,13 @@ const allJobsSlice=createSlice({
       
     }
 })
-export const getAllJobs= createAsyncThunk('allJobs/getJobs',getAllJobsThunk)
+
+// to prevent any fetch call when another fetch call is going on, we can pass a 'condition' cb in the option, https://redux-toolkit.js.org/api/createAsyncThunk#canceling-before-execution
+export const getAllJobs= createAsyncThunk('allJobs/getJobs',getAllJobsThunk,{   
+  condition:(arg, {getState})=>{    // if this cb returns false, getAllJobsThunk will not be executed
+    return !getState().allJobs.isLoading;
+  }
+})
 
 export const showStats=createAsyncThunk('allJobs/showStats',showStatsThunk)
 export const {showLoading,hideLoading,clearFilters,handleChange,changePage,clearAllJobsState}=allJobsSlice.actions;

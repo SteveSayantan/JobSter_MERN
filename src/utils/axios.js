@@ -3,7 +3,7 @@ import { clearStore } from '../features/user/userSlice';
 
 // Now we can use this customFetch as our base url, instead of typing this whole url everytime
 const customFetch= axios.create({
-    baseURL:'https://jobify-prod.herokuapp.com/api/v1/toolkit'
+    baseURL:'https://redux-toolkit-jobster-api-server.onrender.com/api/v1'
 })
 
 
