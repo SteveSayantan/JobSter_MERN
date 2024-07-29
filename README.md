@@ -4,6 +4,8 @@
 
 NiceJob is a powerful job search application built with Redux Toolkit, designed to streamline the job hunting process and provide a seamless user experience. This repository showcases the implementation of NiceJob using Redux Toolkit.
 
+Click [here](https://loquacious-macaron-409299.netlify.app) to take a quick look.
+
 ## Features
 
 ### 1. User Authentication
